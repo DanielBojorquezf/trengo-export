@@ -17,4 +17,4 @@ The tool allows users to export Trengo user data to a CSV file. The interface is
 1. **Clone the repository**
 
    ```sh
-   git clone https://github.com/your_username/trengo-user-exporter.git
+   git clone https://github.com/DanielBojorquezf/trengo-export.git
