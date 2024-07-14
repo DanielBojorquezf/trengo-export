@@ -1,17 +1,19 @@
-var clientes = [];
+var clients = [];
 var requests = 0;
 
 function loadClients() {
     $('#exporting').show();
-    clientes = [];
+    $('#exportBtn').prop('disabled', true);
+    clients = [];
     const token = $('#message').val();
 
     if (!token) {
-        alert('Access token no puede ser nulo');
+        alert('Access token cannot be null');
+        $('#exporting').hide();
+        $('#exportBtn').prop('disabled', false);
         return;
     }
     fetchClients(token);
-
 }
 
 function fetchClients(token, url = null) {
@@ -19,29 +21,24 @@ function fetchClients(token, url = null) {
     $.ajax({
         url,
         beforeSend: function(xhr) {
-             xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+             xhr.setRequestHeader('Authorization', `Bearer ${token}`);
         }, success: function(data){
             result = data.data;
-            clientes = clientes.concat(result);
+            clients = clients.concat(result);
 
             if (data.links?.next) {
                 setTimeout(() => {
-                    fetchClients(token, data.links.next)
+                    fetchClients(token, data.links.next);
                     console.log('API Request: ', data.links.next);
                 }, 1500);
             } else {
                 // no more pages
-                // clientes = result.map(cliente => {
-                //     return {id: cliente.id, name: cliente.name, email: cliente.email};
-                // });
-                const csvData = convertToCSV(clientes);
+                const csvData = convertToCSV(clients);
                 const formattedTodayDate = getFormattedDate();
-                downloadCSV(csvData, `Clientes Trengo ${formattedTodayDate}.csv`);
-                // process the JSON data etc
+                downloadCSV(csvData, `Trengo Clients ${formattedTodayDate}.csv`);
             }
-            
         }
-    })
+    });
 }
 
 function convertToCSV(jsonData) {
@@ -68,9 +65,9 @@ function convertToCSV(jsonData) {
     });
   
     return csv;
-  }
+}
   
-  function downloadCSV(csvData, fileName) {
+function downloadCSV(csvData, fileName) {
     const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
   
     if (navigator.msSaveBlob) { // For IE
@@ -88,9 +85,10 @@ function convertToCSV(jsonData) {
       }
     }
     $('#exporting').hide();
-  }
+    $('#exportBtn').prop('disabled', false);
+}
   
-  function getFormattedDate() {
+function getFormattedDate() {
     const today = new Date();
     let day = today.getDate();
     let month = today.getMonth() + 1;
@@ -105,5 +103,4 @@ function convertToCSV(jsonData) {
     }
   
     return day + '-' + month + '-' + year;
-  }
-  
+}

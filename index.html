@@ -13,26 +13,34 @@
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
-          <div class="col-md-6">
-            <label for="message">Access Token:</label>
-            <textarea class="form-control" id="message" rows="5"></textarea>
-            <button class="btn btn-primary mt-3" onclick="loadClients()" type="submit">
-                Exportar Clientes
-                <i class="bi bi-filetype-csv ml-2"></i>
-            </button>
-            <br><br>
-            <small class="mt-2" id="exporting">Exportando ...</small>
-          </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Export Trengo Clients</h5>
+                        <p class="card-text">This tool allows you to export your Trengo clients to a CSV file. Please enter your access token in the box below. Note that your token will not be saved and is only used to authenticate your session with Trengo.</p>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Access Token:</label>
+                            <textarea class="form-control" id="message" rows="5"></textarea>
+                        </div>
+                        <button class="btn btn-primary" id="exportBtn" onclick="loadClients()" type="submit">
+                            Export Clients
+                            <i class="bi bi-filetype-csv ml-2"></i>
+                        </button>
+                        <br><br>
+                        <small class="mt-2 text-muted" id="exporting" style="display:none;">Exporting...</small>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
     <!-- jQuery -->
     <script
         src="https://code.jquery.com/jquery-3.7.0.js"
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
         crossorigin="anonymous">
     </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/bootstrap-icons.min.js"></script>
-  <script src="assets/js/trengo.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/bootstrap-icons.min.js"></script>
+    <script src="assets/js/trengo.js"></script>
 </body>
 </html>
